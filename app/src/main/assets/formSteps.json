@@ -1,0 +1,28 @@
+[
+    {
+      "idstep": "1",
+      "question": "¿1?",
+      "text": "1",
+      "kindscreen" : "0"
+    },
+    {
+      "idstep": "2",
+      "question": "¿2?",
+      "text": "2",
+      "kindscreen" : "0"
+    },
+    {
+      "idstep": "3",
+      "question": "¿3?",
+      "text": "3",
+      "kindscreen" : "1"
+    },
+    {
+      "idstep": "4",
+      "question": "¿4?",
+      "text": "4",
+      "kindscreen" : "0"
+    }
+]
+
+
