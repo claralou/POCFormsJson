@@ -24,6 +24,14 @@ class MainActivity : AppCompatActivity(), FormFragment.OnFragmentInteractionList
         mAdapter = AdapterFragment(supportFragmentManager, this, mListForms!!)
 
         viewPager.adapter = mAdapter
+        buttonNavigation.setOnClickListener {
+            var position : Int = viewPager.currentItem
+            if (position < mAdapter.count - 1) {
+                position++;
+                viewPager.currentItem = position
+
+            }
+        }
 
 
     }

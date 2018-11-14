@@ -3,12 +3,15 @@ package com.everis.owl.formsjson
 import android.content.Context
 import android.support.v4.view.ViewPager
 import android.util.AttributeSet
+import android.util.Log
+import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 
 
 class VerticalViewPager(context: Context, attrs: AttributeSet?) : ViewPager(context, attrs) {
 
+    var gestureDetector : GestureDetector? = null
 
     init {
         init()
@@ -25,6 +28,7 @@ class VerticalViewPager(context: Context, attrs: AttributeSet?) : ViewPager(cont
     }
 
     private fun init() {
+        gestureDetector = GestureDetector(context, GestureListener())
         // Make page transit vertical
         setPageTransformer(true, VerticalPageTransformer())
         // Get rid of the overscroll drawing that happens on the left and right (the ripple)
@@ -39,6 +43,7 @@ class VerticalViewPager(context: Context, attrs: AttributeSet?) : ViewPager(cont
     }
 
     override fun onTouchEvent(ev: MotionEvent): Boolean {
+        this.gestureDetector!!.onTouchEvent(ev)
         val toHandle = super.onTouchEvent(flipXY(ev))
         // Return MotionEvent to normal
         flipXY(ev)
@@ -73,6 +78,112 @@ class VerticalViewPager(context: Context, attrs: AttributeSet?) : ViewPager(cont
                 view.setAlpha(0f)
             }
         }
+    }
+
+    /*override fun onTouch(v: View, event: MotionEvent): Boolean {
+        this.gestureDetector.onTouchEvent(event)
+        return true
+    }*/
+
+
+    inner class GestureListener : GestureDetector.SimpleOnGestureListener() {
+
+
+        private val TAG = GestureListener::class.java.simpleName
+
+        private val SLIDE_THRESHOLD = 100
+
+        override fun onSingleTapUp(e: MotionEvent): Boolean {
+            return noSlide(e)
+            //return super.onSingleTapUp(e);
+        }
+
+        override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
+            try {
+                val deltaY = e2.y - e1.y
+                val deltaX = e2.x - e1.x
+
+                return if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                    if (Math.abs(deltaX) > SLIDE_THRESHOLD) {
+                        if (deltaX > 0) {
+                            onSlideRight()
+                        } else {
+                            onSlideLeft()
+                        }
+                    } else {
+                        noSlide(e1)
+                    }
+                } else {
+                    if (Math.abs(deltaY) > SLIDE_THRESHOLD) {
+                        if (deltaY > 0) {
+                            onSlideDown()
+                        } else {
+                            onSlideUp()
+                        }
+                    } else {
+                        noSlide(e1)
+                    }
+                }
+            } catch (exception: Exception) {
+                Log.e(TAG, exception.message)
+            }
+
+            return false
+        }
+
+
+
+
+        /*@Override
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            try {
+                float deltaY = e2.getY() - e1.getY();
+                float deltaX = e2.getX() - e1.getX();
+
+                if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                    if (Math.abs(deltaX) > SLIDE_THRESHOLD) {
+                        if (deltaX > 0) {
+                            return onSlideRight();
+                        } else {
+                            return onSlideLeft();
+                        }
+                    }
+                } else {
+                    if (Math.abs(deltaY) > SLIDE_THRESHOLD) {
+                        if (deltaY > 0) {
+                            return onSlideDown();
+                        } else {
+                            return onSlideUp();
+                        }
+                    }
+                }
+            } catch (Exception exception) {
+                Log.e(TAG, exception.getMessage());
+            }
+
+            return false;
+        }*/
+    }
+
+
+    fun onSlideRight(): Boolean {
+        return false
+    }
+
+    fun onSlideLeft(): Boolean {
+        return false
+    }
+
+    fun onSlideUp(): Boolean {
+        return false
+    }
+
+    fun onSlideDown(): Boolean {
+        return false
+    }
+
+    fun noSlide(e: MotionEvent): Boolean {
+        return false
     }
 
 }

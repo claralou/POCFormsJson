@@ -30,6 +30,7 @@ class AdapterFragment(fm: FragmentManager?, ctx : Context, listForms : List<Form
 
     }
 
+
     override fun getCount(): Int {
         //TODO("not implemented") //To change body of created functions use File | Settings | File Templates
         this.mListForms?.let { list ->
