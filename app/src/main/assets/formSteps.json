@@ -3,26 +3,59 @@
       "idstep": "1",
       "question": "¿1?",
       "text": "1",
-      "kindscreen" : "0"
+      "kindscreen" : "0",
+      "isconditional" : false
     },
     {
       "idstep": "2",
       "question": "¿2?",
       "text": "2",
-      "kindscreen" : "0"
+      "kindscreen" : "0",
+      "isconditional" : true
+
     },
     {
       "idstep": "3",
       "question": "¿3?",
       "text": "3",
-      "kindscreen" : "1"
+      "kindscreen" : "1",
+      "isconditional" : false
+
     },
     {
       "idstep": "4",
       "question": "¿4?",
       "text": "4",
-      "kindscreen" : "0"
+      "kindscreen" : "0",
+      "isconditional" : true
+
+    },
+    {
+      "idstep": "5",
+      "question": "¿5?",
+      "text": "5",
+      "kindscreen" : "0",
+      "isconditional" : false
+
+    },
+    {
+      "idstep": "6",
+      "question": "¿6?",
+      "text": "finalStep6",
+      "kindscreen" : "0",
+      "isconditional" : false
+
+    },
+    {
+      "idstep": "7",
+      "question": "¿7?",
+      "text": "finalStep7",
+      "kindscreen" : "1",
+      "isconditional" : false
+
     }
+
+
 ]
 
 

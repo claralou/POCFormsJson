@@ -1,6 +1,8 @@
 package com.everis.owl.formsjson
 
 import android.content.Context
+import com.everis.owl.formsjson.dataModel.FormConditions
+import com.everis.owl.formsjson.dataModel.FormData
 import org.json.JSONArray
 import java.io.*
 import java.util.ArrayList
@@ -66,6 +68,25 @@ class ReadJsonUtils {
 
                 for (i in 0 until jsonArray.length()) {
                     list.add(FormData(jsonArray.getJSONObject(i)))
+                }
+
+
+            } catch (ex: Exception) {
+                ex.printStackTrace()
+            }
+
+            return list
+        }
+
+        fun readFormsConditions(ctx: Context, filename: String): List<FormConditions> {
+            val jsonArray: JSONArray
+            val list = ArrayList<FormConditions>()
+            try {
+                val json = readJsonFile(filename, ctx)
+                jsonArray = JSONArray(json)
+
+                for (i in 0 until jsonArray.length()) {
+                    list.add(FormConditions(jsonArray.getJSONObject(i)))
                 }
 
 

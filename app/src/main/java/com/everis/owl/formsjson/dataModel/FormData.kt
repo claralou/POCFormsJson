@@ -1,4 +1,4 @@
-package com.everis.owl.formsjson
+package com.everis.owl.formsjson.dataModel
 
 import android.os.Parcel
 import android.os.Parcelable
@@ -10,12 +10,14 @@ class FormData() : Parcelable {
 	var question: String? = null
 	var text: String? = null
 	var kindscreen : String? = null
+	var isconditional : Boolean? = null
 
 	constructor(parcel: Parcel) : this() {
 		idstep = parcel.readString()
 		question = parcel.readString()
 		text = parcel.readString()
 		kindscreen = parcel.readString()
+		isconditional = parcel.readBoolean()
 	}
 
 
@@ -25,6 +27,7 @@ class FormData() : Parcelable {
 		this.question = json.getString("question").trim { it <= ' ' }
 		this.text = json.getString("text").trim { it <= ' ' }
 		this.kindscreen = json.getString("kindscreen").trim { it <= ' ' }
+		this.isconditional = json.getBoolean("isconditional")
 	}
 
 	override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -32,10 +35,25 @@ class FormData() : Parcelable {
 		parcel.writeString(question)
 		parcel.writeString(text)
 		parcel.writeString(kindscreen)
+		parcel.writeBoolean(isconditional!!)
 	}
 
 	override fun describeContents(): Int {
 		return 0
+	}
+
+
+	fun Parcel.writeBoolean(value: Boolean) {
+		writeByte(if (value) 1 else 0)
+	}
+
+	fun Parcel.readBoolean(): Boolean {
+		val value = readByte()
+		return when (value) {
+			0.toByte() -> false
+			1.toByte() -> true
+			else -> throw IllegalArgumentException("Cannot read byte value $value as Boolean, 0 or 1 expected.")
+		}
 	}
 
 	companion object CREATOR : Parcelable.Creator<FormData> {

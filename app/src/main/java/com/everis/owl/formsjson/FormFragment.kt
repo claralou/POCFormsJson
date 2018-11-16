@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import com.everis.owl.formsjson.dataModel.FormData
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -32,6 +33,7 @@ class FormFragment : Fragment() {
     //private var resLayout: Int? = null
     private var formData: FormData? = null
     private var listener: OnFragmentInteractionListener? = null
+    private var mainView : IMainView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +64,14 @@ class FormFragment : Fragment() {
                 val btn : Button
                 btn = vw.findViewById(R.id.button) as Button
                 btn.text = formData!!.text
+                btn.setOnClickListener {
+                    //onButtonPressed()
+                    this.mainView?.let { mainVListener ->
+                        mainVListener.showToast("Mensaje desde el paso: " + formData!!.question)
+                    }
+
+
+                }
 
             }
             else -> {
@@ -76,8 +86,12 @@ class FormFragment : Fragment() {
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
+    fun onButtonPressed() {
+        listener?.onFragmentInteraction()
+    }
+
+    fun setMainViewListener(view : IMainView) {
+        mainView = view
     }
 
     override fun onAttach(context: Context) {
@@ -107,7 +121,7 @@ class FormFragment : Fragment() {
      */
     interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
+        fun onFragmentInteraction()
     }
 
     companion object {

@@ -1,0 +1,41 @@
+[
+  {
+    "idstep": "2",
+    "kindcondition":"boolean",
+    "conditions":
+      [
+        {
+          "value" : 1,
+          "idnextstep" : "4"
+        },
+        {
+          "value" : 0,
+          "idnextstep" : "3"
+        }
+      ]
+
+  },
+
+  {
+    "idstep": "4",
+    "kindcondition":"lessthan",
+    "conditions":
+    [
+      {
+        "value" : 6000,
+        "idnextstep" : "7"
+      },
+      {
+        "value" : 100000,
+        "idnextstep" : "6"
+      },
+      {
+        "value" : -1,
+        "idnextstep" : "5"
+      }
+    ]
+
+  }
+
+
+]
