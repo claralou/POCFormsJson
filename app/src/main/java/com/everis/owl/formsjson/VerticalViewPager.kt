@@ -7,6 +7,9 @@ import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
+import android.text.method.Touch.onTouchEvent
+
+
 
 
 class VerticalViewPager(context: Context, attrs: AttributeSet?) : ViewPager(context, attrs) {
@@ -38,16 +41,19 @@ class VerticalViewPager(context: Context, attrs: AttributeSet?) : ViewPager(cont
     override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
         val toIntercept = super.onInterceptTouchEvent(flipXY(ev))
         // Return MotionEvent to normal
-        flipXY(ev)
-        return toIntercept
+        //flipXY(ev)
+        //return toIntercept
+        return false
     }
+
 
     override fun onTouchEvent(ev: MotionEvent): Boolean {
         this.gestureDetector!!.onTouchEvent(ev)
         val toHandle = super.onTouchEvent(flipXY(ev))
         // Return MotionEvent to normal
-        flipXY(ev)
+        //flipXY(ev)
         return toHandle
+        //return false
     }
 
     private fun flipXY(ev: MotionEvent): MotionEvent {
