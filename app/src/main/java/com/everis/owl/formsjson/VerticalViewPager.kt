@@ -21,9 +21,6 @@ class VerticalViewPager(context: Context, attrs: AttributeSet?) : ViewPager(cont
         return true
     }
 
-    /*override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        return super.dispatchTouchEvent(ev)
-    }*/
 
 
 
@@ -55,10 +52,11 @@ class VerticalViewPager(context: Context, attrs: AttributeSet?) : ViewPager(cont
         return false
     }
 
-/*    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        return true
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        this.gestureDetector!!.onTouchEvent(ev)
+        return true //Esto podría ser un problema a la hora de querer detectar un evento touch en un fragment. Probarlo
         //return super.dispatchTouchEvent(ev)
-    }*/
+    }
 
     override fun onTouchEvent(ev: MotionEvent): Boolean {
         return false

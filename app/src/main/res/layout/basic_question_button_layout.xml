@@ -12,16 +12,5 @@
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"/>
-    <RelativeLayout
-            android:id="@+id/gestureButton"
-            android:focusableInTouchMode="true"
-            android:clickable="true"
-            android:focusable="true"
-            android:isScrollContainer="true"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="0dp"
-            android:layout_height="0dp" tools:layout_editor_absoluteY="8dp" tools:layout_editor_absoluteX="8dp">
 
-    </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
