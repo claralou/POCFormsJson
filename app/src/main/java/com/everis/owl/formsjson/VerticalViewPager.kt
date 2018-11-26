@@ -11,6 +11,8 @@ import android.view.View
 
 class VerticalViewPager(context: Context, attrs: AttributeSet?) : ViewPager(context, attrs) {
 
+    var view : IMainView? = null
+
 
     var gestureDetector : GestureDetector? = null
 
@@ -38,6 +40,10 @@ class VerticalViewPager(context: Context, attrs: AttributeSet?) : ViewPager(cont
         setPageTransformer(true, VerticalPageTransformer())
         // Get rid of the overscroll drawing that happens on the left and right (the ripple)
         overScrollMode = View.OVER_SCROLL_NEVER
+    }
+
+    fun setViewListener(listener : IMainView) {
+        view = listener
     }
 
     override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
@@ -205,6 +211,7 @@ class VerticalViewPager(context: Context, attrs: AttributeSet?) : ViewPager(cont
     }
 
     fun onSlideDown(): Boolean {
+        view?.let(IMainView::previousStep)
         return false
     }
 

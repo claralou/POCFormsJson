@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity(), FormFragment.OnFragmentInteractionList
         mAdapter = AdapterFragment(supportFragmentManager, this, mListForms!!, this)
 
         viewPager.adapter = mAdapter
+        viewPager.setViewListener(this)
         buttonNavigation.setOnClickListener {
             var position : Int = viewPager.currentItem
             /*if (position == 2) {
