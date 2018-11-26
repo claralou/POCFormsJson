@@ -4,6 +4,7 @@ import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import android.widget.Toast
 import com.everis.owl.formsjson.dataModel.ConditionsItem
 import com.everis.owl.formsjson.dataModel.FormConditions
@@ -11,6 +12,22 @@ import com.everis.owl.formsjson.dataModel.FormData
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), FormFragment.OnFragmentInteractionListener, IMainView {
+    override fun continueInSameStep() {
+        var position : Int = viewPager.currentItem
+        viewPager.currentItem = position
+        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+
+    override fun previousStep() {
+        var position : Int = viewPager.currentItem
+        if (position > 0) {
+            position--
+        }
+        viewPager.currentItem = position
+        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun showToast(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
     }

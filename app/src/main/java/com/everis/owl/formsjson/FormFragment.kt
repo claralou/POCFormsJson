@@ -1,14 +1,18 @@
 package com.everis.owl.formsjson
 
 import android.content.Context
+import android.graphics.Rect
 import android.net.Uri
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.everis.owl.formsjson.dataModel.FormData
 
@@ -28,6 +32,10 @@ private const val ARG_PARAM2 = "param2"
  *
  */
 class FormFragment : Fragment() {
+
+
+
+
     // TODO: Rename and change types of parameters
     @LayoutRes
     //private var resLayout: Int? = null
@@ -43,13 +51,15 @@ class FormFragment : Fragment() {
         }
     }
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         var vw : View
-
+        var relLayout: RelativeLayout
 
 
         when (formData!!.kindscreen) {
@@ -58,6 +68,24 @@ class FormFragment : Fragment() {
                 val tx : TextView
                 tx = vw.findViewById(R.id.textView) as TextView
                 tx.text = formData!!.text
+                relLayout = vw.findViewById(R.id.gestureTextView)
+                relLayout.setOnTouchListener(object : OnSlidingTouchListener(context!!) {
+                    override fun onSlideUp(): Boolean {
+
+                        return true
+                    }
+
+                    override fun onSlideDown(): Boolean {
+
+                        return true
+                    }
+
+                    override fun noSlide(event: MotionEvent): Boolean {
+
+
+                        return true
+                    }
+                })
             }
             "1" -> {
                 vw = inflater.inflate(R.layout.basic_question_button_layout, container, false)
@@ -72,16 +100,90 @@ class FormFragment : Fragment() {
 
 
                 }
+                relLayout = vw.findViewById(R.id.gestureButton)
+                relLayout.setOnTouchListener(View.OnTouchListener { view, motionEvent ->
+                    when (motionEvent.action){
+                        MotionEvent.ACTION_DOWN -> {
+                            Log.d("kk","lll")
+                        }
+                        MotionEvent.ACTION_UP -> {
+                            //view.performClick()
+                            Log.d("kk","lll")
+                        }
+                    }
+                    return@OnTouchListener true
+                })
+                /*relLayout.setOnTouchListener(object : OnSlidingTouchListener(context!!) {
+                    override fun onSlideUp(): Boolean {
 
+                        return true
+                    }
+
+                    override fun onSlideDown(): Boolean {
+
+                        return true
+                    }
+
+                    override fun noSlide(event: MotionEvent): Boolean {
+
+
+                        return true
+                    }
+                })*/
             }
             else -> {
                 vw = inflater.inflate(R.layout.basic_question_button_layout, container, false)
                 val btn : Button
                 btn = vw.findViewById(R.id.button) as Button
                 btn.text = formData!!.text
+                relLayout = vw.findViewById(R.id.gestureTextView)
+                relLayout.setOnTouchListener(object : OnSlidingTouchListener(context!!) {
+                    override fun onSlideUp(): Boolean {
 
+                        return true
+                    }
+
+                    override fun onSlideDown(): Boolean {
+
+                        return true
+                    }
+
+                    override fun noSlide(event: MotionEvent): Boolean {
+
+
+                        return true
+                    }
+                })
             }
+
+
+
+
         }
+
+        /*vw.setOnTouchListener(object : OnSlidingTouchListener(context!!) {
+            override fun onSlideUp(): Boolean {
+
+                mainView?.let { mainVListener ->
+                    mainVListener.continueInSameStep()
+                }
+                return true
+            }
+
+            override fun onSlideDown(): Boolean {
+
+                mainView?.let { mainVListener ->
+                    mainVListener.previousStep()
+                }
+                return true
+            }
+
+            override fun noSlide(event: MotionEvent): Boolean {
+
+
+                return true
+            }
+        })*/
         return vw
     }
 

@@ -7,12 +7,10 @@ import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
-import android.text.method.Touch.onTouchEvent
-
-
 
 
 class VerticalViewPager(context: Context, attrs: AttributeSet?) : ViewPager(context, attrs) {
+
 
     var gestureDetector : GestureDetector? = null
 
@@ -20,14 +18,21 @@ class VerticalViewPager(context: Context, attrs: AttributeSet?) : ViewPager(cont
         init()
     }
     override fun canScrollHorizontally(direction: Int): Boolean {
-        return false
+        return true
     }
+
+    /*override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        return super.dispatchTouchEvent(ev)
+    }*/
+
+
 
     /**
      * @return `true` iff a normal view pager would support horizontal scrolling at this time
      */
     override fun canScrollVertically(direction: Int): Boolean {
-        return super.canScrollHorizontally(direction)
+        //return super.canScrollHorizontally(direction)
+        return true
     }
 
     private fun init() {
@@ -39,22 +44,35 @@ class VerticalViewPager(context: Context, attrs: AttributeSet?) : ViewPager(cont
     }
 
     override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
+
+        return false
         val toIntercept = super.onInterceptTouchEvent(flipXY(ev))
+
         // Return MotionEvent to normal
-        //flipXY(ev)
+        flipXY(ev)
+
         //return toIntercept
         return false
     }
 
+/*    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        return true
+        //return super.dispatchTouchEvent(ev)
+    }*/
 
     override fun onTouchEvent(ev: MotionEvent): Boolean {
+        return false
         this.gestureDetector!!.onTouchEvent(ev)
         val toHandle = super.onTouchEvent(flipXY(ev))
         // Return MotionEvent to normal
-        //flipXY(ev)
-        return toHandle
-        //return false
+        flipXY(ev)
+        //return toHandle
+
+
+        return false
     }
+
+
 
     private fun flipXY(ev: MotionEvent): MotionEvent {
         val width = width.toFloat()
@@ -64,6 +82,8 @@ class VerticalViewPager(context: Context, attrs: AttributeSet?) : ViewPager(cont
         ev.setLocation(x, y)
         return ev
     }
+
+
 
     private class VerticalPageTransformer : ViewPager.PageTransformer {
         override  fun transformPage(view: View, position: Float) {
@@ -90,6 +110,8 @@ class VerticalViewPager(context: Context, attrs: AttributeSet?) : ViewPager(cont
         this.gestureDetector.onTouchEvent(event)
         return true
     }*/
+
+
 
 
     inner class GestureListener : GestureDetector.SimpleOnGestureListener() {
